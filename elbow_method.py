@@ -17,4 +17,3 @@ def elbow(df):
     plt.ylabel('Distortion')
     plt.title('The Elbow Method showing the optimal k')
     plt.show()
-    ciao
