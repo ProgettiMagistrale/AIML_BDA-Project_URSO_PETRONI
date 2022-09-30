@@ -2,14 +2,17 @@ import numpy as np
 from tqdm import tqdm
 
 class Song_Recommender():
-    def __init__(self, data):
+    def __init__(self, data,index_song_input=0):
         self.data_ = data
+        self.index_song_input_ = index_song_input
 
     def get_recommendations(self, song_name, n_top):
         distances = []
 
         #Estraiamo i valori corrispondenti alla Canzone in input (quella in riproduzione)
         song = self.data_[(self.data_.name.str.lower() == song_name.lower())].head(1).values[0]
+        self.index_song_input_ = self.data_[(self.data_.name.str.lower() == song_name.lower())].head(1).index
+
         #Prelevo il cluster di appartenenza della canzone in input
         cluster_input = song[-1]
 
@@ -40,3 +43,6 @@ class Song_Recommender():
         columns = ['name', 'artists']
 
         return rem_data[columns][:n_top]
+
+    def get_index_input(self):
+        return self.index_song_input_

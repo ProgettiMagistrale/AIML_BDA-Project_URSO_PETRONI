@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # APPLICAZIONE K_MEANS
 def k_means_alg(data, X, k_clusters):
     start = time.time()
-    k_means = KMeans(n_clusters=k_clusters, verbose=False)
+    k_means = KMeans(n_clusters=5, verbose=False)
     k_means.fit(X)
     song_cluster_labels = k_means.predict(X)
     data['cluster_label'] = song_cluster_labels
@@ -72,10 +72,10 @@ def gmm_alg(data, X):
     plt.ylabel('Silhouette Score')
     plt.title('Identify the number of clusters using Silhouette Score')
     plt.show()'''
-    gmm = GaussianMixture(n_components=4)
+    gmm = GaussianMixture(n_components=3)
     gmm.fit(X)
     song_cluster_labels = gmm.predict(X)
     data['cluster_label'] = song_cluster_labels
     end = time.time()
-    print("Il tempo di esecuzione dell'algoritmo DBSCAN è: ", round(end - start, 3), "s")
+    print("Il tempo di esecuzione dell'algoritmo GMM è: ", round(end - start, 3), "s")
     return data

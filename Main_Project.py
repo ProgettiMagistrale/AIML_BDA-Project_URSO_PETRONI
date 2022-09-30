@@ -38,11 +38,11 @@ X = data.select_dtypes(np.number)
 st = StandardScaler()
 X = pd.DataFrame(st.fit_transform(X), columns=X.columns)
 
-#Feauture selection, mediante l'information gain
+'''#Feauture selection, mediante l'information gain
 importances = mutual_info_classif(X, playlists)
 feat_importances=pd.Series(importances, X.columns[0:len(X.columns)])
 feat_importances.plot(kind='barh', color='teal')
-plt.show()
+plt.show()'''
 
 '''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) è key,
 non la consideriamo per la costruzione del modello'''
@@ -50,7 +50,7 @@ data.drop(['key'], axis = 1, inplace = True)
 
 '''Applicazione dell'elbow method per il calcolo del valore ottimale di K (n° di clusters)
 OSS: dall'applicazione dell'elbow method il K ottimale è pari a 4'''
-elbow(X)
+#elbow(X)
 
 '''Plot del k-distance graph per la scelta del valore ottimale di eps (dim. del raggio)
 OSS: dal risultato del plot, il valore ottimale per eps risulta essere 2.5'''
@@ -86,13 +86,42 @@ def switch(data, scelta):
 
 data = switch(data, scelta)
 
+def missClassifiedSamle(data,playlists):
+    i=0
+    misClasErr = 0
+    for elem in data:
+        if elem != playlists[i]:
+            misClasErr = misClasErr + 1
+        i = i+1
+    print("Il numero di sample classificati erronemanete ",misClasErr)
+
+missClassifiedSamle(data['cluster_label'],playlists)
+
 
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
 input_song= "Pompeii"
 recommender = Song_Recommender(data)
 result = recommender.get_recommendations(input_song, 10)
+
+index_song_input = recommender.get_index_input().values[0]
+playlist_song_input = playlists[index_song_input]
+
+#Estraggo dal dataset la playlist della input_song
+playlist_songs = []
+i = 0
+for elem in data['name']:
+    if playlists[i] == playlist_song_input and elem !=input_song:
+        playlist_songs.append(elem)
+    i = i+1
 print("La canzone in riprodzione (input) è: ", input_song)
 print(result[["name","artists"]])
+
+missClassErr=0
+for elem in result['name']:
+    if elem not in playlist_songs:
+        missClassErr = missClassErr+1
+
+print("Il numero di miss classified sample è: ", missClassErr)
 
 ''' Visualizzazione dei cluster ottenuti dall'applicazione degli algoritmi di clustering, 
 utilizzando l'algoritmo di dimensionality reduction PCA'''
@@ -106,9 +135,7 @@ projection['cluster'] = data['cluster_label']
 
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
 sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
-plt.show()'''
-
-
+plt.show()
 
 
 

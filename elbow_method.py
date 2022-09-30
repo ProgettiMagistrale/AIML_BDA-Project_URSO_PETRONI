@@ -6,7 +6,7 @@ def elbow(df):
     distortions = []
     K = range(1,10)
     for k in K:
-        kmeanModel = KMeans(n_clusters=k)
+        kmeanModel = KMeans(n_clusters=3)
         kmeanModel.fit(df)
         distortions.append(kmeanModel.inertia_)
 
