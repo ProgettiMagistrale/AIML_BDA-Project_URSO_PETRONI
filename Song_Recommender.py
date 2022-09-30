@@ -24,7 +24,8 @@ class Song_Recommender():
             dist = 0
             for col in np.arange(len(rem_data.columns)):
                 #Non consideriamo le colonne numerate in basso (le colonne categoriche)
-                if not col in [3,8,14,16]:
+                #if not col in [3,8,14,16]:
+                if not col in [0,1,2,17]:
                     #Valore di correlazione tra la canzone in riproduzione (input) e ciascuna delle altre canzoni presenti nel dataset
                     dist = dist + np.absolute(float(song[col]) - float(r_song[col]))
             distances.append(dist)
@@ -36,6 +37,6 @@ class Song_Recommender():
         rem_data = rem_data.sort_values('distance')
 
         #Estrazione colonne di interesse
-        columns = ['name', 'artists','id']
+        columns = ['name', 'artists']
 
         return rem_data[columns][:n_top]
