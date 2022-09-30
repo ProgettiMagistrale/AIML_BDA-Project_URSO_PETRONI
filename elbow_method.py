@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn_extra.cluster import KMedoids
+from kmedoids import KMedoids
+
 def elbow(df):
     distortions = []
     K = range(1,10)

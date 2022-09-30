@@ -50,7 +50,7 @@ data.drop(['key'], axis = 1, inplace = True)
 
 '''Applicazione dell'elbow method per il calcolo del valore ottimale di K (n° di clusters)
 OSS: dall'applicazione dell'elbow method il K ottimale è pari a 4'''
-#elbow(X)
+elbow(X)
 
 '''Plot del k-distance graph per la scelta del valore ottimale di eps (dim. del raggio)
 OSS: dal risultato del plot, il valore ottimale per eps risulta essere 2.5'''
@@ -96,7 +96,7 @@ print(result[["name","artists"]])
 
 ''' Visualizzazione dei cluster ottenuti dall'applicazione degli algoritmi di clustering, 
 utilizzando l'algoritmo di dimensionality reduction PCA'''
-#tsn-e
+
 #Applicazione del PCA
 pca_pipeline = Pipeline([('scaler', StandardScaler()), ('PCA', PCA(n_components=2))])
 song_embedding = pca_pipeline.fit_transform(X)
@@ -106,7 +106,10 @@ projection['cluster'] = data['cluster_label']
 
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
 sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
-plt.show()
+plt.show()'''
+
+
+
 
 
 '''# Visualizing the Clusters with t-SNE
