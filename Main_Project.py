@@ -67,7 +67,7 @@ scelta = input('Inserisci: ')
 
 def switch(data, scelta):
     #settato numero di cluster pari a 4 dopo aver applicato l'Elbow method
-    k_clusters = 4
+    k_clusters = 3
     if scelta == "1":
         data = k_means_alg(data, X,k_clusters)
         return data
@@ -109,7 +109,7 @@ sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
 plt.show()
 
 
-# Visualizing the Clusters with t-SNE
+'''# Visualizing the Clusters with t-SNE
 tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
 song_embedding = tsne_pipeline.fit_transform(X)
 projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)
@@ -119,4 +119,4 @@ projection['cluster'] = data['cluster_label']
 #Visualizzazione bidimensionale dei clusters
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
 sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
-plt.show()
+plt.show()'''
