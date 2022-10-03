@@ -44,7 +44,7 @@ feat_importances=pd.Series(importances, X.columns[0:len(X.columns)])
 feat_importances.plot(kind='barh', color='teal')
 plt.show()'''
 
-'''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) è key,
+'''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) è key, 
 non la consideriamo per la costruzione del modello'''
 data.drop(['key'], axis = 1, inplace = True)
 
@@ -67,7 +67,7 @@ scelta = input('Inserisci: ')
 
 def switch(data, scelta):
     #settato numero di cluster pari a 4 dopo aver applicato l'Elbow method
-    k_clusters = 3
+    k_clusters = 5
     if scelta == "1":
         data = k_means_alg(data, X,k_clusters)
         return data
@@ -101,7 +101,8 @@ missClassifiedSamle(data['cluster_label'],playlists)
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
 input_song= "Pompeii"
 recommender = Song_Recommender(data)
-result = recommender.get_recommendations(input_song, 10)
+n_song = 25
+result = recommender.get_recommendations(input_song, n_song)
 
 index_song_input = recommender.get_index_input().values[0]
 playlist_song_input = playlists[index_song_input]
@@ -113,7 +114,7 @@ for elem in data['name']:
     if playlists[i] == playlist_song_input and elem !=input_song:
         playlist_songs.append(elem)
     i = i+1
-print("La canzone in riprodzione (input) è: ", input_song)
+print("La canzone in riproduzione (input) è: ", input_song)
 print(result[["name","artists"]])
 
 missClassErr=0
@@ -122,6 +123,8 @@ for elem in result['name']:
         missClassErr = missClassErr+1
 
 print("Il numero di miss classified sample è: ", missClassErr)
+
+print("L'error rate sulle prime ", n_song , "canzoni è pari al ", (missClassErr/n_song)*100, "%")
 
 ''' Visualizzazione dei cluster ottenuti dall'applicazione degli algoritmi di clustering, 
 utilizzando l'algoritmo di dimensionality reduction PCA'''

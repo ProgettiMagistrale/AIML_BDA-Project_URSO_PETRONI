@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # APPLICAZIONE K_MEANS
 def k_means_alg(data, X, k_clusters):
     start = time.time()
-    k_means = KMeans(n_clusters=5, verbose=False)
+    k_means = KMeans(n_clusters=k_clusters, verbose=False)
     k_means.fit(X)
     song_cluster_labels = k_means.predict(X)
     data['cluster_label'] = song_cluster_labels
