@@ -36,7 +36,7 @@ def dbscan_alg(data, X):
     ''' I valori di eps e min_samples sono stati impostati rispettivamente
     mediante il k-distance graph e la regola empirica (minPts >= num_features+1)'''
     start = time.time()
-    clusters = DBSCAN(eps=2.2, min_samples=16)
+    clusters = DBSCAN(eps=2.02, min_samples=16)
     song_cluster_labels = clusters.fit_predict(X)
     data['cluster_label'] = song_cluster_labels
 
@@ -55,7 +55,7 @@ def dbscan_alg(data, X):
 # APPLICAZIONE GAUSSIAN MIXTURE MODEL
 def gmm_alg(data, X):
     start = time.time()
-    '''K = range(2, 7)
+    K = range(2, 7)
     S=[]
     for k in K:
         # Set the model and its parameters
@@ -71,11 +71,12 @@ def gmm_alg(data, X):
     plt.xlabel('k')
     plt.ylabel('Silhouette Score')
     plt.title('Identify the number of clusters using Silhouette Score')
-    plt.show()'''
+    plt.show()
     gmm = GaussianMixture(n_components=3)
     gmm.fit(X)
     song_cluster_labels = gmm.predict(X)
     data['cluster_label'] = song_cluster_labels
     end = time.time()
     print("Il tempo di esecuzione dell'algoritmo GMM è: ", round(end - start, 3), "s")
+
     return data
