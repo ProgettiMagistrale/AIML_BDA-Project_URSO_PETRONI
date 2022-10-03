@@ -1,7 +1,7 @@
 import time
 from sklearn.cluster import KMeans
+from sklearn_extra.cluster import KMedoids
 from sklearn.cluster import DBSCAN
-from kmedoids import KMedoids
 from sklearn.mixture import GaussianMixture
 from sklearn import metrics # for calculating Silhouette score
 import matplotlib.pyplot as plt
@@ -22,9 +22,9 @@ def k_means_alg(data, X, k_clusters):
 def k_medoids_alg(data, X, k_clusters):
     X = X.to_numpy()
     start = time.time()
-    k_means = KMedoids(n_cluster=k_clusters)
+    k_means = KMedoids(n_clusters=k_clusters)
     k_means.fit(X)
-    song_cluster_labels = k_means.prediction(X)
+    song_cluster_labels = k_means.predict(X)
     data['cluster_label'] = song_cluster_labels
     # print(silhouette_score(X[:], song_cluster_labels))
     end = time.time()
