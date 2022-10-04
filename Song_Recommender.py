@@ -1,5 +1,6 @@
 import numpy as np
 from tqdm import tqdm
+import math
 
 class Song_Recommender():
     def __init__(self, data,index_song_input=0):
@@ -29,8 +30,9 @@ class Song_Recommender():
                 #Non consideriamo le colonne numerate in basso (le colonne categoriche)
                 #if not col in [3,8,14,16]:
                 if not col in [0,1,2,17]:
-                    #Valore di correlazione tra la canzone in riproduzione (input) e ciascuna delle altre canzoni presenti nel dataset
-                    dist = dist + np.absolute(float(song[col]) - float(r_song[col]))
+                    '''Calcolo della distanza Euclidea (misura di similarità) tra la canzone in riproduzione 
+                    (input) e ciascuna delle altre canzoni presenti nel dataset'''
+                    dist = dist + math.sqrt(pow(float(song[col]) - float(r_song[col]), 2))
             distances.append(dist)
 
         #Aggiungiamo le distanze ad ogni canzone nel dataset

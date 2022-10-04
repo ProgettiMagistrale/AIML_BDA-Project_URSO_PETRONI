@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.feature_selection import mutual_info_classif
-
 from Song_Recommender import Song_Recommender
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
@@ -14,7 +12,7 @@ warnings.filterwarnings("ignore")
 from elbow_method import elbow
 from eps import choose_eps
 from sklearn.manifold import TSNE
-import plotly.express as px
+
 
 
 #Lettura del dataset
@@ -67,7 +65,7 @@ scelta = input('Inserisci: ')
 
 def switch(data, scelta):
     #settato numero di cluster pari a 4 dopo aver applicato l'Elbow method
-    k_clusters = 5
+    k_clusters = 4
     if scelta == "1":
         data = k_means_alg(data, X,k_clusters)
         return data
@@ -99,7 +97,7 @@ missClassifiedSamle(data['cluster_label'],playlists)
 
 
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
-input_song= "Pompeii"
+input_song= "Call me maybe"
 recommender = Song_Recommender(data)
 n_song = 25
 result = recommender.get_recommendations(input_song, n_song)
@@ -143,7 +141,8 @@ plt.show()
 
 
 # Visualizing the Clusters with t-SNE
-tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
+
+'''tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
 song_embedding = tsne_pipeline.fit_transform(X)
 projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)
 projection['title'] = data['name']
@@ -152,4 +151,4 @@ projection['cluster'] = data['cluster_label']
 #Visualizzazione bidimensionale dei clusters
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
 sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
-plt.show()
+plt.show()'''
