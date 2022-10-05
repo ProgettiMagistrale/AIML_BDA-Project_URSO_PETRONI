@@ -107,7 +107,7 @@ missClassifiedSamle(data['cluster_label'],playlists)
 
 
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
-input_song= "Pompeii"
+input_song= "Call me maybe"
 recommender = Song_Recommender(data)
 n_song = 25
 result = recommender.get_recommendations(input_song, n_song)
