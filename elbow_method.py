@@ -7,9 +7,9 @@ def elbow(df):
     distortions = []
     K = range(1,15)
     for k in K:
-        kmeanModel = GaussianMixture(n_components=k)
+        kmeanModel = KMeans(n_clusters=k)
         kmeanModel.fit(df)
-        distortions.append(kmeanModel.inerti)
+        distortions.append(kmeanModel.inertia_)
 
     #plot
     plt.figure(figsize=(16,8))

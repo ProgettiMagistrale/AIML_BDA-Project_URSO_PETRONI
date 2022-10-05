@@ -34,11 +34,11 @@ data.drop(['playlist'], axis = 1, inplace = True)
 #Selezione delle features numeriche
 X = data.select_dtypes(np.number)
 
-#Feauture selection, mediante l'information gain
+'''#Feauture selection, mediante l'information gain
 importances = mutual_info_classif(X, playlists)
 feat_importances=pd.Series(importances, X.columns[0:len(X.columns)])
 feat_importances.plot(kind='barh', color='teal')
-plt.show()
+plt.show()'''
 
 '''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) è key, 
 non la consideriamo per la costruzione del modello
@@ -72,13 +72,14 @@ print("4) GMM")
 scelta = input('Inserisci: ')
 
 def switch(data, scelta):
-    #settato numero di cluster pari a 4 dopo aver applicato l'Elbow method
-    k_clusters = 7
+    #settato numero di cluster pari a 7 dopo aver applicato l'Elbow method
     if scelta == "1":
+        k_clusters = 7
         data = k_means_alg(data, X,k_clusters)
         return data
 
     elif scelta == "2":
+        k_clusters = 7
         data = k_medoids_alg(data, X, k_clusters)
         return data
 
@@ -105,7 +106,7 @@ missClassifiedSamle(data['cluster_label'],playlists)
 
 
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
-input_song= "Call me maybe"
+input_song= "Pompeii"
 recommender = Song_Recommender(data)
 n_song = 25
 result = recommender.get_recommendations(input_song, n_song)
@@ -130,7 +131,8 @@ for elem in result['name']:
 
 print("Il numero di miss classified sample è: ", missClassErr)
 
-print("L'error rate sulle prime ", n_song , "canzoni è pari al ", (missClassErr/n_song)*100, "%")
+print("L'error rate sulle prime ",n_song, "canzoni è pari al ", (missClassErr/n_song)*100, "%")
+print("L'accuracy sulle prime ",n_song, "canzoni è pari al ", (1-(missClassErr/n_song))*100, "%")
 
 ''' Visualizzazione dei cluster ottenuti dall'applicazione degli algoritmi di clustering, 
 utilizzando l'algoritmo di dimensionality reduction PCA'''
