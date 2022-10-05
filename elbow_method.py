@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn_extra.cluster import KMedoids
+from sklearn.mixture import GaussianMixture
 
 def elbow(df):
     distortions = []
-    K = range(1,10)
+    K = range(1,15)
     for k in K:
-        kmeanModel = KMeans(n_clusters=k)
+        kmeanModel = GaussianMixture(n_components=k)
         kmeanModel.fit(df)
-        distortions.append(kmeanModel.inertia_)
+        distortions.append(kmeanModel.inerti)
 
     #plot
     plt.figure(figsize=(16,8))
