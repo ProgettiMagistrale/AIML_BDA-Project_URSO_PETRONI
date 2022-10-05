@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.feature_selection import mutual_info_classif
-
+from matplotlib.pyplot import figure
 from Song_Recommender import Song_Recommender
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
@@ -35,6 +35,7 @@ data.drop(['playlist'], axis = 1, inplace = True)
 X = data.select_dtypes(np.number)
 
 '''#Feauture selection, mediante l'information gain
+figure(figsize=(11, 6), dpi=80)
 importances = mutual_info_classif(X, playlists)
 feat_importances=pd.Series(importances, X.columns[0:len(X.columns)])
 feat_importances.plot(kind='barh', color='teal')
