@@ -144,6 +144,7 @@ print("L'accuracy sulle prime ",n_song, "canzoni è pari al ", (1-(missClassErr/
 utilizzando l'algoritmo di dimensionality reduction PCA'''
 
 #Applicazione del PCA
+figure(figsize=(9, 6), dpi=80)
 pca_pipeline = Pipeline([('scaler', StandardScaler()), ('PCA', PCA(n_components=2))])
 song_embedding = pca_pipeline.fit_transform(X)
 projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)
@@ -151,13 +152,13 @@ projection['title'] = data['name']
 projection['cluster'] = data['cluster_label']
 
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
-sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
+sns.move_legend(p, "upper right", bbox_to_anchor=(1.13, 1), title='Clusters')
 plt.show()
 
 
 
 # Visualizing the Clusters with t-SNE
-
+figure(figsize=(9, 6), dpi=80)
 tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
 song_embedding = tsne_pipeline.fit_transform(X)
 projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)
@@ -166,5 +167,5 @@ projection['cluster'] = data['cluster_label']
 
 #Visualizzazione bidimensionale dei clusters
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
-sns.move_legend(p, "upper right", bbox_to_anchor=(1.15, 1), title='Clusters')
+sns.move_legend(p, "upper right", bbox_to_anchor=(1.16, 1), title='Clusters')
 plt.show()
