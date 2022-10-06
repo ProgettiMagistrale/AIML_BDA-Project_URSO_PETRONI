@@ -18,7 +18,11 @@ from sklearn.manifold import TSNE
 
 
 #Lettura del dataset
-data = pd.read_csv("data/playlist_df.csv")
+data = pd.read_csv("data/playlist_dataframe.csv")
+
+
+# Rimozione dei samlpes duplicati
+data.drop_duplicates(keep=False, inplace=True)
 
 ## Rimozione parentesi e apostrofo
 data["artists"] = data["artists"].str.replace("[", "")
@@ -29,22 +33,23 @@ data["artists"] = data["artists"].str.replace("'", "")
 print("Il numero dei missing values nel dataset è: ",data.isna().sum().sum())
 
 playlists = data["playlist"]
+print(playlists.shape)
 data.drop(['playlist'], axis = 1, inplace = True)
 
 #Selezione delle features numeriche
 X = data.select_dtypes(np.number)
 
-'''#Feauture selection, mediante l'information gain
-figure(figsize=(11, 6), dpi=80)
+#Feauture selection, mediante l'information gain
+'''figure(figsize=(11, 6), dpi=80)
 importances = mutual_info_classif(X, playlists)
 feat_importances=pd.Series(importances, X.columns[0:len(X.columns)])
 feat_importances.plot(kind='barh', color='teal')
 plt.show()'''
 
-'''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) è key, 
-non la consideriamo per la costruzione del modello
+'''Poichè dal risultato precedente, la feature con meno importanza (IG più basso) sono key e popularity, 
+non la consideriamo per la costruzione del modello'''
 data.drop(['key'], axis = 1, inplace = True)
-#data.drop(['popularity'], axis = 1, inplace = True)'''
+data.drop(['popularity'], axis = 1, inplace = True)
 
 #Seleziono le features numeriche escludendo la feature 'key'
 X = data.select_dtypes(np.number)
