@@ -80,7 +80,7 @@ scelta = input('Inserisci: ')
 def switch(data, scelta):
     #settato numero di cluster pari a 7 dopo aver applicato l'Elbow method
     if scelta == "1":
-        k_clusters = 8
+        k_clusters = 7
         data = k_means_alg(data, X,k_clusters)
         return data
 
@@ -167,5 +167,5 @@ projection['cluster'] = data['cluster_label']
 
 #Visualizzazione bidimensionale dei clusters
 p = sns.scatterplot(data=projection, x="x", y="y", hue=data['cluster_label'], legend="full", palette="deep")
-sns.move_legend(p, "upper right", bbox_to_anchor=(1.16, 1), title='Clusters')
+sns.move_legend(p, "upper right", bbox_to_anchor=(1.13, 1), title='Clusters')
 plt.show()

@@ -29,9 +29,11 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 from sklearn import mixture
+import warnings
+warnings.filterwarnings("ignore")
 
 #Lettura del dataset
-data = pd.read_csv("data/playlist_df.csv")
+data = pd.read_csv("data/playlist_dataframe.csv")
 
 ## Rimozione parentesi e apostrofo
 data["artists"] = data["artists"].str.replace("[", "")

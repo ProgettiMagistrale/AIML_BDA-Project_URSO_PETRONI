@@ -59,25 +59,7 @@ def dbscan_alg(data, X):
 # APPLICAZIONE GAUSSIAN MIXTURE MODEL
 def gmm_alg(data, X):
     start = time.time()
-    '''K = range(11, 20)
-    S = []
-    for k in K:
-        # Set the model and its parameters
-        model = GaussianMixture(n_components=k)
-        # Fit the model
-        labels = model.fit_predict(X)
-        # Calculate Silhoutte Score and append to a list
-        S.append(metrics.silhouette_score(X, labels, metric='euclidean'))
-    # Plot the resulting Silhouette scores on a graph
-    plt.figure(figsize=(16, 8), dpi=300)
-    plt.plot(K, S, 'bo-', color='black')
-    plt.xlabel('k')
-    plt.ylabel('Silhouette Score')
-    plt.title('Identify the number of clusters using Silhouette Score')
-    plt.show()'''
-
-
-    gmm = GaussianMixture(n_components=6)
+    gmm = GaussianMixture(n_components=3)
     gmm.fit(X)
     song_cluster_labels = gmm.predict(X)
     data['cluster_label'] = song_cluster_labels
