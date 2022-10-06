@@ -18,7 +18,7 @@ from sklearn.manifold import TSNE
 
 
 #Lettura del dataset
-data = pd.read_csv("dati/playlist_dataframe.csv")
+data = pd.read_csv("data/playlist_dataframe.csv")
 
 
 # Rimozione dei samlpes duplicati
