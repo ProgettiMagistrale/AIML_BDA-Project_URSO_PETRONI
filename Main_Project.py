@@ -18,7 +18,7 @@ from sklearn.manifold import TSNE
 
 
 #Lettura del dataset
-data = pd.read_csv("data/playlist_dataframe.csv")
+data = pd.read_csv("dati/playlist_dataframe.csv")
 
 
 # Rimozione dei samlpes duplicati
@@ -80,7 +80,7 @@ scelta = input('Inserisci: ')
 def switch(data, scelta):
     #settato numero di cluster pari a 7 dopo aver applicato l'Elbow method
     if scelta == "1":
-        k_clusters = 7
+        k_clusters = 8
         data = k_means_alg(data, X,k_clusters)
         return data
 
