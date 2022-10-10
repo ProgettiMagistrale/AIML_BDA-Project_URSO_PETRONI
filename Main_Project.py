@@ -19,10 +19,8 @@ from sklearn.manifold import TSNE
 
 #Lettura del dataset
 data = pd.read_csv("data/playlist_dataframe.csv")
-
-
 # Rimozione dei samlpes duplicati
-data.drop_duplicates(keep=False, inplace=True)
+#data.drop_duplicates(keep=False, inplace=True)
 
 ## Rimozione parentesi e apostrofo
 data["artists"] = data["artists"].str.replace("[", "")
@@ -33,7 +31,6 @@ data["artists"] = data["artists"].str.replace("'", "")
 print("Il numero dei missing values nel dataset è: ",data.isna().sum().sum())
 
 playlists = data["playlist"]
-print(playlists.shape)
 data.drop(['playlist'], axis = 1, inplace = True)
 
 #Selezione delle features numeriche
@@ -57,7 +54,6 @@ X = data.select_dtypes(np.number)
 #Normalizzazione mediante z-score
 st = StandardScaler()
 X = pd.DataFrame(st.fit_transform(X), columns=X.columns)
-
 
 
 '''Applicazione dell'elbow method per il calcolo del valore ottimale di K (n° di clusters)
@@ -85,8 +81,10 @@ def switch(data, scelta):
         return data
 
     elif scelta == "2":
-        k_clusters = 7
-        data = k_medoids_alg(data, X, k_clusters)
+        k_clusters = 5
+        '''A causa dell'elevata capacità computazionale richiesta, in termini di memoria neccessaria
+        per l'implementazione del k-medoids è stato ridotto il numero di samples utilizzati da 47.000 a 40.000'''
+        data = k_medoids_alg(data.head(40000), X.head(40000), k_clusters)
         return data
 
     elif scelta == "3":
@@ -99,24 +97,22 @@ def switch(data, scelta):
 
 data = switch(data, scelta)
 
-def missClassifiedSamle(data,playlists):
-    i=0
-    misClasErr = 0
-    for elem in data:
-        if elem != playlists[i]:
-            misClasErr = misClasErr + 1
-        i = i+1
-    print("Il numero di sample classificati erronemanete ",misClasErr)
-
-missClassifiedSamle(data['cluster_label'],playlists)
+'''Riduzione dell'array playlist nel caso in cui il metodo scelta sia il k-medoids'''
+if scelta == "2":
+    playlists = playlists.head(40000)
 
 
 #Richiamo della clase SongReccomender fornendo i parametri richiesti
 input_song= "Call me maybe"
 recommender = Song_Recommender(data)
+
+#Numero canzoni playlist consigliata
 n_song = 25
+
+#Calcolo della playlist mediante il metodo get_recommendations() della classe SongRecommender()
 result = recommender.get_recommendations(input_song, n_song)
 
+#Estrazione dell'indice per la selezione della playlist ideale della canzone in input
 index_song_input = recommender.get_index_input().values[0]
 playlist_song_input = playlists[index_song_input]
 
@@ -130,6 +126,7 @@ for elem in data['name']:
 print("La canzone in riproduzione (input) è: ", input_song)
 print(result[["name","artists"]])
 
+#Calcolo del miss classification error necessaio per ottenere Error rate e accuracy
 missClassErr=0
 for elem in result['name']:
     if elem not in playlist_songs:

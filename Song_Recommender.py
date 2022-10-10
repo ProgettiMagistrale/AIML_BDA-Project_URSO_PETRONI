@@ -12,6 +12,7 @@ class Song_Recommender():
 
         #Estraiamo i valori corrispondenti alla Canzone in input (quella in riproduzione)
         song = self.data_[(self.data_.name.str.lower() == song_name.lower())].head(1).values[0]
+
         self.index_song_input_ = self.data_[(self.data_.name.str.lower() == song_name.lower())].head(1).index
 
         #Prelevo il cluster di appartenenza della canzone in input
@@ -30,8 +31,8 @@ class Song_Recommender():
                 #Non consideriamo le colonne numerate in basso (le colonne categoriche)
                 #if not col in [3,8,14,16]:
                 if not col in [0,1,2,17]:
-                    '''Calcolo della distanza Euclidea (misura di similarità) tra la canzone in riproduzione 
-                    (input) e ciascuna delle altre canzoni presenti nel dataset'''
+                    '''Calcolo della distanza Euclidea (misura di similarità) tra la canzone in 
+                    riproduzione (input) e ciascuna delle altre canzoni presenti nel dataset'''
                     dist = dist + math.sqrt(pow(float(song[col]) - float(r_song[col]), 2))
             distances.append(dist)
 
@@ -46,5 +47,6 @@ class Song_Recommender():
 
         return rem_data[columns][:n_top]
 
+    #Ottenimento indice della playlist ideale della canzone in input
     def get_index_input(self):
         return self.index_song_input_

@@ -2,18 +2,6 @@
 ================================
 Gaussian Mixture Model Selection
 ================================
-
-This example shows that model selection can be performed with
-Gaussian Mixture Models using :ref:`information-theoretic criteria (BIC) <aic_bic>`.
-Model selection concerns both the covariance type
-and the number of components in the model.
-In that case, AIC also provides the right result (not shown to save time),
-but BIC is better suited if the problem is to identify the right model.
-Unlike Bayesian procedures, such inferences are prior-free.
-
-In that case, the model with 2 components and full covariance
-(which corresponds to the true generative model) is selected.
-
 """
 
 import numpy as np
@@ -21,7 +9,6 @@ import itertools
 import pandas as pd
 from scipy import linalg
 import matplotlib
-from sklearn.feature_selection import mutual_info_classif
 from sklearn.preprocessing import StandardScaler
 
 matplotlib.use('TkAgg')
